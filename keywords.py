@@ -1,14 +1,13 @@
-import datetime
-current_date = datetime.date.today()
-
 micro_mobility = [
     # E-bikes and bikes (existing)
-    'e-scooter','e-bike', 'bike', 'BICYCLE', 'E-Bik', 'E-Sco','E BIK',
-    'E-BIK','E-SCOOTER', 'E-scooter', 'e-scooter', 'E scooter', 'E SCOOTER',
-    'EBIKE', 'Ebike', 'E-bike', 'E-BIKE', 'E-bike', 'E bike', 'Citi bike',
-    'Electric B', 'electric s', 'e-bi', 'e bik', 'e-bike','Bike','BIKE','E-Bike',
-    'Bicycle', 'BICYC', 'Bicyc', 'E Sco', 'e sco', 'PEDAL BIKE',
+    'e-bike', 'bike', 'BICYCLE', 'E-Bik','E BIK',
+    'E-BIK', 'EBIKE', 'Ebike', 'E-bike', 'E-BIKE', 'E-bike', 
+    'E bike', 'Citi bike','Electric B', 'electric s', 
+    'e-bi', 'e bik', 'e-bike','Bike','BIKE','E-Bike',
+    'Bicycle', 'BICYC', 'Bicyc', 'PEDAL BIKE',
     # Scooter variations (kick/push scooters and e-scooters)
+    'e-scooter','E-SCOOTER','E-scooter', 'e-scooter','E scooter', 'E SCOOTER',
+    'E Sco', 'e sco','E-Sco',
     'scooter', 'SCOOTER', 'Scooter',
     'scoot', 'Scoot', 'SCOOT',
     'scoo', 'SCOO', 'scooc', 'SCOOTOR',
@@ -33,21 +32,91 @@ micro_mobility = [
     'one wheel', 'ONE WHEEL'
 ]
 
-injury_types = ['NaN', 'Eye', 'Elbow-Lower-Arm-Hand', 'Knee-Lower Leg Foot', 'Back', 
+table_names =['nyc.collisions_persons','nyc.collisions_locations','nyc.runtimes']
+
+injury_types = ['Eye', 'Elbow-Lower-Arm-Hand', 'Knee-Lower Leg Foot', 'Back', 
               'Hip-Upper Leg', 'Shoulder - Upper Arm', 'Unknown', 'Face',
                 'Abdomen - Pelvis', 'Neck', 'Chest', 'Does Not Apply', 'Entire Body', 'Head']
 
-complaints = ['NaN', 'Contusion - Bruise', 'Minor Burn', 'Amputation', 'Severe Burn', 
+complaints = ['Contusion - Bruise', 'Minor Burn', 'Amputation', 'Severe Burn', 
               'None Visible', 'Fracture - Dislocation', 'Fracture - Distorted - Dislocation', 
               'Severe Bleeding', 'Minor Bleeding', 'Internal', 'Whiplash', 'Crush Injuries', 
               'Unknown', 'Complaint of Pain or Nausea', 'Concussion', 'Does Not Apply', 
               'Severe Lacerations', 'Moderate Burn', 'Complaint of Pain', 'Abrasion', 'Paralysis']
 
-emotional_status = ['NaN', 'Unknown', 'Semiconscious', 'Does Not Apply', 'Unconscious', 'Incoherent', 
+emotional_status = ['Unknown', 'Semiconscious', 'Does Not Apply', 'Unconscious', 'Incoherent', 
                     'Apparent Death', 'Conscious', 'Shock']
 
-#vehicles database - h9gi-nx95
-#persons database - f55k-p6yu
+collision_persons_table_col = ["unique_id","collision_id","person_id",         
+            "person_type","person_injury","vehicle_id",          
+            "ped_role", "person_sex", "person_age",           
+            "ejection", "emotional_status",     
+            "bodily_injury", "position_in_vehicle",  
+            "safety_equipment", "complaint",            
+            "ped_location", "ped_action",           
+            "contributing_factor_1",               
+            "contributing_factor_2","crash_datetime"]
+
+collision_location_table_col = [
+    "crash_datetime",
+    "borough",
+    "zip_code",
+    "latitude",
+    "longitude",
+    "on_street_name",
+    "off_street_name",
+    "number_of_persons_injured",
+    "number_of_persons_killed",
+    "number_of_pedestrians_injured",
+    "number_of_pedestrians_killed",
+    "number_of_cyclist_injured",
+    "number_of_cyclist_killed",
+    "number_of_motorist_injured",
+    "number_of_motorist_killed",
+    "contributing_factor_vehicle_1",
+    "contributing_factor_vehicle_2",
+    "contributing_factor_vehicle_3",
+    "contributing_factor_vehicle_4",
+    "contributing_factor_vehicle_5",
+    "vehicle_type_code_1",
+    "vehicle_type_code_2",
+    "vehicle_type_code_3",
+    "vehicle_type_code_4",
+    "vehicle_type_code_5",
+    "cross_street_name",
+    "collision_id" 
+]
+collision_api_request_fields = [
+    "crash_date",
+    "crash_time",
+    "borough",
+    "zip_code",
+    "latitude",
+    "longitude",
+    "on_street_name",
+    "off_street_name",
+    "number_of_persons_injured",
+    "number_of_persons_killed",
+    "number_of_pedestrians_injured",
+    "number_of_pedestrians_killed",
+    "number_of_cyclist_injured",
+    "number_of_cyclist_killed",
+    "number_of_motorist_injured",
+    "number_of_motorist_killed",
+    "contributing_factor_vehicle_1",
+    "contributing_factor_vehicle_2",
+    "contributing_factor_vehicle_3",
+    "contributing_factor_vehicle_4",
+    "contributing_factor_vehicle_5",
+    "vehicle_type_code1",
+    "vehicle_type_code2",
+    "vehicle_type_code_3",
+    "vehicle_type_code_4",
+    "vehicle_type_code_5",
+    "cross_street_name",
+    "collision_id" 
+]
+
 
 vehicle_categories = {
  
