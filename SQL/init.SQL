@@ -1,0 +1,57 @@
+CREATE SCHEMA IF NOT EXISTS nyc;
+CREATE TYPE nyc_boroughs AS ENUM ('MANHATTAN','BROOKLYN','QUEENS','STATEN ISLAND','BRONX');
+CREATE TYPE NYPD_SEX AS ENUM ('M','F','U');
+CREATE TABLE if NOT EXISTS nyc.collisions_locations
+    (collision_id INT PRIMARY KEY,
+    crash_datetime TIMESTAMP,
+    borough NYC_BOROUGHS,
+    zip_code CHAR(5),
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    location TEXT,
+    number_of_persons_injured  SMALLINT,      
+    on_street_name   TEXT,      
+    off_street_name  TEXT,      
+    number_of_persons_killed       SMALLINT,      
+    number_of_pedestrians_injured  SMALLINT,      
+    number_of_pedestrians_killed   SMALLINT,      
+    number_of_cyclist_injured      SMALLINT,      
+    number_of_cyclist_killed       SMALLINT,      
+    number_of_motorist_injured     SMALLINT,      
+    number_of_motorist_killed      SMALLINT,      
+    contributing_factor_vehicle_1  TEXT,      
+    contributing_factor_vehicle_2  TEXT,      
+    contributing_factor_vehicle_3  TEXT,      
+    contributing_factor_vehicle_4  TEXT,      
+    contributing_factor_vehicle_5  TEXT,      
+    vehicle_type_code_1 TEXT,      
+    vehicle_type_code_2 TEXT,      
+    vehicle_type_code_3 TEXT,      
+    vehicle_type_code_4 TEXT,      
+    vehicle_type_code_5 TEXT,      
+    cross_street_name   TEXT);
+CREATE TABLE IF NOT EXISTS nyc.collisions_persons 
+    (
+ unique_id INT PRIMARY KEY,       
+ collision_id          INT REFERENCES nyc.collisions_locations(collision_id),                    
+ person_id             VARCHAR,     
+ vehicle_id            INT,                    
+ crash_datetime        TIMESTAMP,
+ ped_role              TEXT,                       
+ person_type           TEXT,                       
+ person_sex            NYPD_SEX,            
+ person_age            SMALLINT,                   
+ position_in_vehicle   TEXT,                       
+ safety_equipment      TEXT,                       
+ complaint             TEXT,                       
+ ped_location          TEXT,                       
+ ped_action            TEXT,                       
+ ejection              TEXT,                       
+ emotional_status      TEXT,                       
+ contributing_factor_1 TEXT,                       
+ contributing_factor_2 TEXT,                       
+ bodily_injury         TEXT,                       
+ person_injury         TEXT);
+CREATE TABLE IF NOT EXISTS nyc.runtimes 
+    (run_dates TIMESTAMP,
+    record_num INT);
